@@ -37,10 +37,18 @@ while en_jeu and pv_hero > 0:
                       print("2.Fuir")
                       action = input("\nQuel action (1-2) : ")
                       if action == "1":
-                             pv_hero = attaque_orgre - pv_hero
+                             print("Tu attaque l'orgre ......")
+                             pv_monstre = pv_monstre - attaque
+                             print(f"\n L'orgre as {pv_monstre}")
+                      if action == "2":
+                             print("L'orgre t'attaque ....")
+                             pv_hero = pv_hero + bouclier - attaque_orgre
                              print(f" Tu as {pv_hero} point de vie")
+
+
                       if action == "2":
                              print("Tu as fuir")
+                             break
 
         elif evenement == "tresor":
                print("Tu as trouver une potion de soin")
