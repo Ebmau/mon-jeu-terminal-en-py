@@ -1,16 +1,14 @@
 import random
 
-
 print("=======================================================")
-print("====  Bienvenue mon jeu dans le terminal  ====")
+print("====  Bienvenue dans mon jeu dans le terminal  ====")
 print("=======================================================")
 
 name = input("Entrez le nom de votre héros : ")
 pv_hero = 100
 attaque = 10
 bouclier = 5
-print(f"Bonjour héro {name} ! Vous avez {pv_hero} points de vie et {attaque} points d'attaque ! Tu as {bouclier} points de bouclier.")
-
+print(f"Bonjour héros {name} ! Vous avez {pv_hero} points de vie et {attaque} points d'attaque ! Tu as {bouclier} points de bouclier.")
 
 inventaire = ["potion de soin"]
 
@@ -19,52 +17,63 @@ en_jeu = True
 while en_jeu and pv_hero > 0:
     print("\n--- QUE VEUX-TU FAIRE ? ---")
     print("1. Explorer les environs")
-    print("2. Ouvrir ton inventaire ")
+    print("2. Ouvrir ton inventaire")
     print("3. Voir mes stats")
     print("4. Quitter le jeu")
     choix = input("\nTon choix (1-4) : ")
 
-
     if choix == "1":
         evenement = random.choice(["monstre", "tresor", "rien"])
+        
         if evenement == "monstre":
-               pv_monstre = 50
-               attaque_orgre = 12
-               print("Un orgre apparait devant toi !...")
-               while pv_hero > 0 and pv_monstre > 0:
-                      print("\n--- Que veux tu faire ? ---") 
-                      print("1. Attaquer")
-                      print("2.Fuir")
-                      action = input("\nQuel action (1-2) : ")
-                      if action == "1":
-                             print("Tu attaque l'orgre ......")
-                             pv_monstre = pv_monstre - attaque
-                             print(f"\n L'orgre as {pv_monstre}")
-                      if action == "2":
-                             print("L'orgre t'attaque ....")
-                             pv_hero = pv_hero + bouclier - attaque_orgre
-                             print(f" Tu as {pv_hero} point de vie")
+            pv_monstre = 50
+            attaque_ogre = 12
+            print("\nUn ogre apparaît devant toi !...")
+            
+            while pv_hero > 0 and pv_monstre > 0:
+                print("\n--- Que veux-tu faire ? ---") 
+                print("1. Attaquer")
+                print("2. Fuir")
+                action = input("\nQuelle action (1-2) : ")
 
+                if action == "1":
+                    # --- TON TOUR ---
+                    print("\nTu attaques l'ogre ......")
+                    pv_monstre = pv_monstre - attaque 
+                    print(f"L'ogre a {pv_monstre} PV")
+                    
+                    # --- LE TOUR DE L'OGRE ---
+                    if pv_monstre > 0:
+                        print("L'ogre t'attaque ....")
+                        pv_hero = pv_hero + bouclier - attaque_ogre
+                        print(f"Tu as {pv_hero} points de vie")
+                    else:
+                        print("Tu as vaincu l'ogre !")
 
-                      if action == "2":
-                             print("Tu as fuir")
-                             break
+                elif action == "2": 
+                    print("\nTu as fui")
+                    break
 
         elif evenement == "tresor":
-               print("Tu as trouver une potion de soin")
-               inventaire.append("Potion de soin")
+            print("\nTu as trouvé une potion de soin !")
+            inventaire.append("Potion de soin")
+            
         elif evenement == "rien":
-               print("Tu continu à avancé...")
+            print("\nTu continues à avancer...")
 
     elif choix == "2":
-            print(f"Tu as ouvert ton inventaire tu as {inventaire}.")
+        print(f"\nTu as ouvert ton inventaire, tu as : {inventaire}")
 
     elif choix == "3":
-            print("Vois-ci tes stats....")
+        print("\nVoici tes stats....")
 
     elif choix == "4":
-            print("Tu quitte le jeu...")
-            break
+        print("\nTu quittes le jeu...")
+        break
+        
     else:
-            print("Erreur, tu dois choisir 1 , 2 , 3 ou 4")
-    
+        print("\nErreur, tu dois choisir 1 , 2 , 3 ou 4")
+
+# Ce message s'affiche si la boucle s'arrête car les PV tombent à 0
+if pv_hero <= 0:
+    print("\n☠️ Tes PV sont tombés à zéro... GAME OVER !")
